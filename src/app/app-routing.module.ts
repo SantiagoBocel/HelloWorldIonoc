@@ -10,7 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'hello-world',
+    loadChildren: () => import('./hello-world/hello-world.module').then( m => m.HelloWorldPageModule)
   },
+
 ];
 
 @NgModule({
