@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelloWorldPage implements OnInit {
 
+  Nombre = "";
   constructor() { }
 
   ngOnInit() {
+  }
+
+  async Escribir(nombre){
+    console.log("usuario",nombre.value);
+    this.Nombre = nombre.value;
+    // try{
+    //   const Nombre = await Usuario.value;
+    //   console.log(Nombre);
+    // }catch(error)
+    // {
+    //   console.log("Error->",error)
+    // }
   }
 
 }

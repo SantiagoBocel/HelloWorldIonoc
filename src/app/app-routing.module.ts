@@ -8,9 +8,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'hello-world',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'hello-world',
     loadChildren: () => import('./hello-world/hello-world.module').then( m => m.HelloWorldPageModule)
   },
