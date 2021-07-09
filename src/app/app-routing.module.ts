@@ -14,7 +14,11 @@ const routes: Routes = [
   {
     path: 'hello-world',
     loadChildren: () => import('./hello-world/hello-world.module').then( m => m.HelloWorldPageModule)
+  },  {
+    path: 'lambda',
+    loadChildren: () => import('./lambda/lambda.module').then( m => m.LambdaPageModule)
   },
+
 
 ];
 

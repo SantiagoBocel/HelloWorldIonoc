@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lambda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--Regresar al menu-->
+  <ion-row>
+    <ion-col>
+      <p>
+        <a style="clear: left;" routerLink="/hello-world">REGRESAR</a>
+      </p>
+    </ion-col>
+  </ion-row>
+  <br/>
+  <form>
+    <ion-item lines="full">
+      <ion-label  position="floating" >Nombre: </ion-label>
+      <ion-input type="Text"  #nombre required></ion-input>
+    </ion-item>
+  
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" (click)="ConsumirAPI(nombre)"
+        expand="block" >Consumir API</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>
