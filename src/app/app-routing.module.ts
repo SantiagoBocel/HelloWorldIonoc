@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'lambda',
     loadChildren: () => import('./lambda/lambda.module').then( m => m.LambdaPageModule)
   },
+  {
+    path: 'cotizador',
+    loadChildren: () => import('./cotizador/cotizador.module').then( m => m.CotizadorPageModule)
+  },
 
 
 ];
