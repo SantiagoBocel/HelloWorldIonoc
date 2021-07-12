@@ -19,13 +19,17 @@
       <ion-label  position="floating" >Nombre: </ion-label>
       <ion-input type="Text"  #nombre required></ion-input>
     </ion-item>
+    <ion-item lines="full">
+      <ion-label  position="floating" >Apellido: </ion-label>
+      <ion-input type="Text"  #apellido required></ion-input>
+    </ion-item>
   
     <ion-row>
       <ion-col>
-        <ion-button type="submit" (click)="ConsumirAPI(nombre)"
+        <ion-button type="submit" (click)="ConsumirAPI(nombre,apellido)"
         expand="block" >Consumir API</ion-button>
       </ion-col>
     </ion-row>
   </form>
-  <h1 class="Hola">Hello World</h1>
+  <h1 class="Hola">{{Nombre}}</h1>
 </ion-content>
