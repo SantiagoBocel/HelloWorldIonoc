@@ -15,7 +15,7 @@ export class CotizadorPage implements OnInit {
   async Cotizador(moneda){
     //debugger
     this.provedor.Cotizar().then(data=>{
-     this.Criptomoneda = moneda.value / data["price"];
+     this.Criptomoneda = (moneda.value / data["price"]).toFixed(8);
       console.log(this.Criptomoneda);
     }).catch(data=>{
       console.log(data);

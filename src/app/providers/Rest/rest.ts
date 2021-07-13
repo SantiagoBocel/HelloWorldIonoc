@@ -7,7 +7,6 @@ import { Injectable } from "@angular/core";
    constructor(public http:HttpClient){
      console.log("Hola ResetProvider")
     }
-    ObtenerRespuesta;
     async EscribirAPI(Name,LastName){
         //debugger 
         const httpOptions = {
