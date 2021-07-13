@@ -7,15 +7,19 @@ import { RestProvider } from '../providers/Rest/rest';
 })
 export class LambdaPage implements OnInit {
 
-  Nombre = "";
+  Nombre:any;
   constructor(public provedor: RestProvider) { }
 
 
   ngOnInit() {
   }
   async ConsumirAPI(nombre, apellido){
-   debugger
-   this.provedor.EscribirAPI(nombre.value, apellido.value);
-   this.Nombre =  this.provedor.ObtenerRespuesta;
+   //debugger
+   this.provedor.EscribirAPI(nombre.value, apellido.value).then(data=>{
+     this.Nombre = data;
+   }).catch(data=>{
+    console.log(data);
+   });
+   
   }
 }

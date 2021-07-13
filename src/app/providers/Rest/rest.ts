@@ -9,7 +9,7 @@ import { Injectable } from "@angular/core";
     }
     ObtenerRespuesta;
     async EscribirAPI(Name,LastName){
-        debugger 
+        //debugger 
         const httpOptions = {
           headers: new HttpHeaders({
             'Content-Type':  'application/json'
@@ -18,13 +18,21 @@ import { Injectable } from "@angular/core";
         let postData = {Name,LastName}
         var Api_URL = "https://gw585k8vz2.execute-api.us-east-2.amazonaws.com/Pruebas/hola-mundo";
        
-       this.http.post(Api_URL, postData,httpOptions).subscribe(data => {
-         console.log(data["body"]);
-         this.ObtenerRespuesta = data["body"];
-        }, error => {
-                console.log(error);
-    });
-    }
+          return new Promise(resolve=> {
+            this.http.post(Api_URL, postData,httpOptions).subscribe(data => {
+              resolve(data["body"]);
+            },err=>console.log(err))
+          });
+   }
+
+    Cotizar(){
+    // debugger
+    var Api_URL = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT";
+    return new Promise(resolve=> {
+      this.http.get(Api_URL).subscribe(data => {resolve(data);},err=>console.log(err))
+    })
+   }
+
  }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestProvider } from '../providers/Rest/rest';
 
 @Component({
   selector: 'app-cotizador',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CotizadorPage implements OnInit {
 
-  constructor() { }
+  Criptomoneda:any;
+  constructor(public provedor: RestProvider) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  async Cotizador(moneda){
+    //debugger
+    this.provedor.Cotizar().then(data=>{
+     this.Criptomoneda = moneda.value / data["price"];
+      console.log(this.Criptomoneda);
+    }).catch(data=>{
+      console.log(data);
+    })
+ 
   }
-
 }
