@@ -14,20 +14,32 @@
   </ion-row>
   <br/>
   <form>  <ion-item lines="full">
-    <ion-label  position="floating" >USDT: </ion-label>
-    <ion-input type="number"  #moneda ></ion-input>
+    <ion-label  position="floating" ><strong>De</strong></ion-label> 
+    <ion-select placeholder="Moneda" (ionChange)="Asignar_De($event)" >
+      <ion-select-option value="BTC">BTC</ion-select-option>
+      <ion-select-option value="ETH">ETH</ion-select-option>
+      <ion-select-option value="BNB">BNB</ion-select-option>
+      <ion-select-option value="USDT"> USDT</ion-select-option>
+    </ion-select>
+    <br/>
+    <ion-input type="number"  #moneda required></ion-input>
   </ion-item>
   <ion-item lines="full">
-    <ion-label type="number" >BTC: {{Criptomoneda}} </ion-label>
+    <ion-label  position="floating" ><strong>A</strong></ion-label> 
+    <ion-select placeholder="Moneda"(ionChange)="Asignar_A($event)" >
+      <ion-select-option value="BTC">BTC</ion-select-option>
+      <ion-select-option value="BNB">BNB</ion-select-option>
+    </ion-select>
   </ion-item>
-
   <ion-row>
     <ion-col>
-      <ion-button type="submit" (click)="Cotizador(moneda)"
+      <ion-button type="submit" (click)="Cotizador(moneda,15)"
       expand="block" >Cotizar</ion-button>
     </ion-col>
   </ion-row>
 </form>
-
-
+  <h1>{{time | async }}</h1>
+<h1 >{{Option}} {{Criptomoneda}} {{Option_A}}</h1>
+<ion-button  expand="block" (click)="Confirmar()">Comprar</ion-button>
+<h1>{{Confirmacion}}</h1>
 </ion-content>
