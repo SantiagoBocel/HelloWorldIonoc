@@ -58,7 +58,7 @@ export class CotizadorPage implements OnInit {
     if(this.timer != 0){
 
       this.Confirmacion = "Confirmado";
-      let id = String((this.timer *3));
+      let id = String((this.timer *4));
       let direccionIP = "192.168.56.1";
       let browser = "Microsoft_edge";
       let Transaccion = this.Option+this.Criptomoneda+this.Option_A;

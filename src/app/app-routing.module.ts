@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'cotizador',
     loadChildren: () => import('./cotizador/cotizador.module').then( m => m.CotizadorPageModule)
   },
+  {
+    path: 'informacion-compra',
+    loadChildren: () => import('./informacion-compra/informacion-compra.module').then( m => m.InformacionCompraPageModule)
+  },
 
 
 ];
