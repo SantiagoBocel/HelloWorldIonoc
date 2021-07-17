@@ -29,19 +29,18 @@
     <ion-select placeholder="Moneda"(ionChange)="Asignar_A($event)" >
       <ion-select-option value="BTC">BTC</ion-select-option>
       <ion-select-option value="BNB">BNB</ion-select-option>
-      <ion-select-option value="USDT"> USDT</ion-select-option>
+      <ion-select-option value="USDT">USDT</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-row>
     <ion-col>
-      <ion-button type="submit" (click)="Cotizador(moneda,15)"
+      <ion-button type="submit" [disabled]="isenabled"(click)="Cotizador(moneda)"
       expand="block" >Cotizar</ion-button>
     </ion-col>
   </ion-row>
 </form>
-  <h1>{{time | async }}</h1>
-<h1 >{{Option}} {{Criptomoneda}} {{Option_A}}</h1>
-<ion-button  expand="block" (click)="Confirmar()">Comprar</ion-button>
+<h1 id="Info" >De {{Original}} {{cantidad}} A {{Option_A}} {{Criptomoneda}} </h1>
+<ion-button  expand="block" [disabled]="!isenabled" (click)="Confirmar()">Comprar {{time | async }}</ion-button>
 <h1>{{Confirmacion}}</h1>
 <ion-button  expand="block" (click)="Consultar()">Consultar Compra</ion-button>
 <h1>{{Consulta}}</h1>

@@ -9,38 +9,62 @@ import { RestProvider } from '../providers/Rest/rest';
   styleUrls: ['./cotizador.page.scss'],
 })
 export class CotizadorPage implements OnInit {
- 
+  //Calcular tiempos
   time: BehaviorSubject<string> = new BehaviorSubject("00")
   timer: number;
+  // Moneda
   Criptomoneda:any;
-  Option:string;
-  Option_A:any;
+  Original:string;
+  Destino:any;
+  isenabled:boolean=false;
   Confirmacion:any;
   Consulta:any;
-  cantidad_inicial:any;
+  id_cotizacion:any; 
+  cantidad:any;
   constructor(public provedor: RestProvider) {}
 
   ngOnInit() {}
-  async Cotizador(moneda, duracion: number){
+  async Cotizador(moneda){
     //debugger
-    let Primero = this.Option
-    let Segunda = this.Option_A
-    this.cantidad_inicial = moneda.value;
-    this.provedor.Cotizar(Primero,Segunda,moneda.value).then(data=>{
+    let CoinOrgin = this.Original
+    let CoinDest = this.Destino
+    let usuario= "Santiago"
+    this.cantidad = moneda.value;
+    
+    this.provedor.Cotizar(CoinOrgin,CoinDest,moneda.value).then(data=>{
       this.Criptomoneda = data;
     }).catch(data=>{
       console.log(data);
     })
-    this.timer = duracion;
+    
+    this.timer = 10;
     setInterval(()=>{
       this.updateTimevalue();
     },1000);
+    //Mostrar datos
+    document.getElementById('Info').style.display = 'block';
+    let browser = this.navegador();
+    let tiempo = this.Calcular_tiempo();
+    let divice = navigator.platform;
+    //Informacion base de datos 
+    this.provedor.Tabla_Cotizar(usuario,this.cantidad,CoinDest,this.Criptomoneda,browser, divice,tiempo).then(data=>{
+      this.id_cotizacion = data;
+    }).catch(data=>{
+    console.log(data)
+  })
+  if(this.timer != 0){
+    this.isenabled=true; 
+  }else
+  {
+    this.isenabled=false; 
+  }
   }
   Asignar_De(event:CustomEvent){
-    this.Option =  event.detail.value;
+    this.Original
+     =  event.detail.value;
   }
   Asignar_A(event:CustomEvent){
-    this.Option_A = event.detail.value;
+    this.Destino = event.detail.value;
   }
 
   updateTimevalue(){
@@ -61,23 +85,15 @@ export class CotizadorPage implements OnInit {
   }
 
   async Confirmar(){
-    if(this.timer != 0){
-      //debugger
-      this.Confirmacion = "Confirmado";
-      let usuario= "Santiago"
-      let cantidad = this.cantidad_inicial;
-      let CoinDest = this.Option_A
-      let resultado = this.Criptomoneda;
-      let browser = this.navegador();
-      let tiempo = this.Calcular_tiempo();
-      let divice = navigator.platform;
-  
-      
-    this.provedor.Tabla_Cotizar(usuario,cantidad,CoinDest,resultado,browser, divice,tiempo)
-    }else
-    {
-      this.Confirmacion =" ";
-    }
+    let CoinDest = this.Destino
+    let usuario= "Santiago"
+    let browser = this.navegador();
+    let resultado = this.Criptomoneda;
+    let tiempo = this.Calcular_tiempo();
+    let divice = navigator.platform;
+    this.provedor.Tabla_Compra(this.id_cotizacion,tiempo,usuario,CoinDest,this.cantidad,resultado,browser,divice)
+    this.isenabled=false; 
+    document.getElementById('Info').style.display = 'none';
   }
 
   navegador(){
@@ -91,7 +107,7 @@ export class CotizadorPage implements OnInit {
  
  Calcular_tiempo(){
   var date = new Date();
-   return date.getDate() + "/" + date.getMonth() +"/"+date.getMonth() +
+   return date.getDate() + "/" + date.getMonth() +"/"+date.getFullYear() +
    "Hora"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
  }
 

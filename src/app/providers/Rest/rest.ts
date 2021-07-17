@@ -23,7 +23,7 @@ import { Injectable } from "@angular/core";
    }
    //conectado con Lambda_Cotizar
    async Tabla_Cotizar(usuario,cantidad,CoinDest,resultado,browser, divice,tiempo){
-    // debugger
+    //debugger
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -31,9 +31,27 @@ import { Injectable } from "@angular/core";
       };
     let postData = {usuario,cantidad,CoinDest,resultado,browser, divice,tiempo}
     var Api_URL = "https://top2rb438h.execute-api.us-east-2.amazonaws.com/Escribir/escribir";
-        this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
-          console.log(data);
-        },err=>console.log(err))
+    return new Promise(resolve=> { this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
+      console.log(data);
+      resolve(data);    
+      },err=>console.log(err))
+    });
+   }
+   //conectada con Lambda_Compra
+   async Tabla_Compra(id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice){
+    debugger
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+        })
+      };
+    let postData = {id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice}
+    var Api_URL = " https://vlav65fhgg.execute-api.us-east-2.amazonaws.com/Escritura/Escritura";
+    return new Promise(resolve=> { this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
+      console.log(data);
+      resolve(data);    
+      },err=>console.log(err))
+    });
    }
    async Leer_base(){
      //debugger
