@@ -16,14 +16,16 @@ export class CotizadorPage implements OnInit {
   Option:string;
   Option_A:any;
   Confirmacion:any;
+  Consulta:any;
+  cantidad_inicial:any;
   constructor(public provedor: RestProvider) {}
 
   ngOnInit() {}
   async Cotizador(moneda, duracion: number){
     //debugger
-     let Primero = this.Option
-     let Segunda = this.Option_A
-     let valor
+    let Primero = this.Option
+    let Segunda = this.Option_A
+    this.cantidad_inicial = moneda.value;
     this.provedor.Cotizar(Primero,Segunda,moneda.value).then(data=>{
       this.Criptomoneda = data;
     }).catch(data=>{
@@ -53,19 +55,44 @@ export class CotizadorPage implements OnInit {
     const text = seconds;
     this.time.next(text)
   }
+  async Consultar(){
+    this.provedor.Leer_base().then(data=>
+      {this.Consulta =data}).catch(data=>{console.log(data)})
+  }
 
   async Confirmar(){
     if(this.timer != 0){
-
+      //debugger
       this.Confirmacion = "Confirmado";
-      let id = String((this.timer *4));
-      let direccionIP = "192.168.56.1";
-      let browser = "Microsoft_edge";
-      let Transaccion = this.Option+this.Criptomoneda+this.Option_A;
-    this.provedor.BaseDatos(id,direccionIP,browser,Transaccion );
+      let usuario= "Santiago"
+      let cantidad = this.cantidad_inicial;
+      let CoinDest = this.Option_A
+      let resultado = this.Criptomoneda;
+      let browser = this.navegador();
+      let tiempo = this.Calcular_tiempo();
+      let divice = navigator.platform;
+  
+      
+    this.provedor.Tabla_Cotizar(usuario,cantidad,CoinDest,resultado,browser, divice,tiempo)
     }else
     {
       this.Confirmacion =" ";
     }
   }
+
+  navegador(){
+    var agente = navigator.userAgent;
+    var navegadores = ["Chrome","Firefox","Opera","Trident","MISE","Edge"];
+    for(var i in navegadores){
+      if(agente.indexOf(navegadores[i]) != -1)
+      return navegadores[i];
+  }
+ }
+ 
+ Calcular_tiempo(){
+  var date = new Date();
+   return date.getDate() + "/" + date.getMonth() +"/"+date.getMonth() +
+   "Hora"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+ }
+
 }

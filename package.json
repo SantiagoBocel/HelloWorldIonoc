@@ -21,6 +21,7 @@
     "@angular/router": "~12.0.1",
     "@capacitor/core": "3.1.1",
     "@ionic-native/http": "^5.34.0",
+    "@ionic-native/unique-device-id": "^5.34.0",
     "@ionic-native/web-socket-server": "^5.34.0",
     "@ionic/angular": "^5.5.2",
     "cordova-plugin-websocket-server": "^1.6.0",
@@ -29,6 +30,7 @@
     "node-fetch": "^2.6.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
