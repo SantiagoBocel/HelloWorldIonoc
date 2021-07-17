@@ -25,39 +25,36 @@ export class CotizadorPage implements OnInit {
 
   ngOnInit() {}
   async Cotizador(moneda){
-    //debugger
+    debugger
     let CoinOrgin = this.Original
     let CoinDest = this.Destino
-    let usuario= "Santiago"
     this.cantidad = moneda.value;
-    
+    let resultado 
     this.provedor.Cotizar(CoinOrgin,CoinDest,moneda.value).then(data=>{
       this.Criptomoneda = data;
+      this.Tabla_Cotizar()
+    resultado = data;
     }).catch(data=>{
       console.log(data);
     })
-    
     this.timer = 10;
     setInterval(()=>{
       this.updateTimevalue();
-    },1000);
-    //Mostrar datos
-    document.getElementById('Info').style.display = 'block';
+    },1000);    
+    if(this.timer != 0)
+      this.isenabled=true; 
+  }
+
+  Tabla_Cotizar(){
+    let usuario= "Santiago"
     let browser = this.navegador();
     let tiempo = this.Calcular_tiempo();
-    let divice = navigator.platform;
-    //Informacion base de datos 
-    this.provedor.Tabla_Cotizar(usuario,this.cantidad,CoinDest,this.Criptomoneda,browser, divice,tiempo).then(data=>{
+    let divice = navigator.platform; 
+    this.provedor.Tabla_Cotizar(usuario,this.cantidad,this.Destino, this.Criptomoneda,browser, divice,tiempo).then(data=>{
       this.id_cotizacion = data;
     }).catch(data=>{
     console.log(data)
   })
-  if(this.timer != 0){
-    this.isenabled=true; 
-  }else
-  {
-    this.isenabled=false; 
-  }
   }
   Asignar_De(event:CustomEvent){
     this.Original
@@ -71,8 +68,9 @@ export class CotizadorPage implements OnInit {
     let seconds: any = this.timer;
     let contador = this.timer
     this.timer = contador - 1; 
-    if(this.timer<1){
+    if(this.timer<= 0){
       this.timer = 0
+      this.isenabled=false;
     }
     seconds = String("0" + Math.floor(seconds)).slice(-2);
 
@@ -84,6 +82,7 @@ export class CotizadorPage implements OnInit {
       {this.Consulta =data}).catch(data=>{console.log(data)})
   }
 
+
   async Confirmar(){
     let CoinDest = this.Destino
     let usuario= "Santiago"
@@ -93,7 +92,7 @@ export class CotizadorPage implements OnInit {
     let divice = navigator.platform;
     this.provedor.Tabla_Compra(this.id_cotizacion,tiempo,usuario,CoinDest,this.cantidad,resultado,browser,divice)
     this.isenabled=false; 
-    document.getElementById('Info').style.display = 'none';
+   
   }
 
   navegador(){
