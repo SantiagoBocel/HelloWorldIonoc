@@ -20,12 +20,13 @@ export class CotizadorPage implements OnInit {
   Confirmacion:any;
   Consulta:any;
   id_cotizacion:any; 
+  id_compra:any;
   cantidad:any;
   constructor(public provedor: RestProvider) {}
 
   ngOnInit() {}
   async Cotizador(moneda){
-    debugger
+    //debugger
     let CoinOrgin = this.Original
     let CoinDest = this.Destino
     this.cantidad = moneda.value;
@@ -78,21 +79,32 @@ export class CotizadorPage implements OnInit {
     this.time.next(text)
   }
   async Consultar(){
-    this.provedor.Leer_base().then(data=>
-      {this.Consulta =data}).catch(data=>{console.log(data)})
+   // debugger 
+   this.provedor.Leer_base(this.id_compra).then(data=>{
+    let prueba = String(data);
+    this.Inf_Consulta(prueba);
+    }).catch(data=>{console.log(data)})
+  }
+  async Inf_Consulta(Consulta){
+    //debugger
+    var datos = Consulta.split(",")
+    this.Consulta = datos[7] +"\n"+datos[4] ;
   }
 
-
   async Confirmar(){
+    //debugger
     let CoinDest = this.Destino
     let usuario= "Santiago"
     let browser = this.navegador();
     let resultado = this.Criptomoneda;
     let tiempo = this.Calcular_tiempo();
     let divice = navigator.platform;
-    this.provedor.Tabla_Compra(this.id_cotizacion,tiempo,usuario,CoinDest,this.cantidad,resultado,browser,divice)
+    this.provedor.Tabla_Compra(this.id_cotizacion,tiempo,usuario,CoinDest,this.cantidad,resultado,browser,divice).then(data=>{
+    this.id_compra = data;
+    }).catch(data=>{
+      console.log(data)
+    })
     this.isenabled=false; 
-   
   }
 
   navegador(){
@@ -107,7 +119,7 @@ export class CotizadorPage implements OnInit {
  Calcular_tiempo(){
   var date = new Date();
    return date.getDate() + "/" + date.getMonth() +"/"+date.getFullYear() +
-   "Hora"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+   " Hora "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
  }
 
 }
