@@ -17,6 +17,7 @@ export class CotizadorPage implements OnInit {
   Original:string;
   Destino:any;
   isenabled:boolean=false;
+  isQuery:boolean=false;
   Confirmacion:any;
   Consulta:any;
   id_cotizacion:any; 
@@ -38,7 +39,7 @@ export class CotizadorPage implements OnInit {
     }).catch(data=>{
       console.log(data);
     })
-    this.timer = 10;
+    this.timer = 15;
     setInterval(()=>{
       this.updateTimevalue();
     },1000);    
@@ -87,8 +88,12 @@ export class CotizadorPage implements OnInit {
   }
   async Inf_Consulta(Consulta){
     //debugger
-    var datos = Consulta.split(",")
-    this.Consulta = datos[7] +"\n"+datos[4] ;
+    var datos = Consulta.split(",");
+    this.Consulta = 
+    datos[7].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ") +"\n"+"\n"+
+    datos[4].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ") +"\n"+"\n"+
+    datos[3].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ") +"\n"+"\n"+
+    datos[8].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ");
   }
 
   async Confirmar(){
@@ -104,6 +109,8 @@ export class CotizadorPage implements OnInit {
     }).catch(data=>{
       console.log(data)
     })
+    this.isQuery=true;
+    this.timer = 0
     this.isenabled=false; 
   }
 

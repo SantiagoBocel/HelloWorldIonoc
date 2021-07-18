@@ -42,6 +42,6 @@
 <h1>{{Criptomoneda}}</h1>
 <ion-button  expand="block" [disabled]="!isenabled" (click)="Confirmar()">Comprar {{time | async }}</ion-button>
 <h1>{{Confirmacion}}</h1>
-<ion-button  expand="block" (click)="Consultar()">Consultar Compra</ion-button>
-<h3><small>{{Consulta}}</small></h3>
+<ion-button  expand="block" (click)="Consultar()" [disabled]="!isQuery">Consultar Compra</ion-button>
+<h3><small><b>{{Consulta}}</b></small></h3>
 </ion-content>

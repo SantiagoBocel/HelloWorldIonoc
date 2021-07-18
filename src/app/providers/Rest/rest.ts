@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
  export class RestProvider{
+   tipo_cambio:any;
    constructor(public http:HttpClient){
      console.log("Hola ResetProvider")
     }
@@ -40,12 +41,13 @@ import { Injectable } from "@angular/core";
    //conectada con Lambda_Compra
    async Tabla_Compra(id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice){
     //debugger
+    let cambio = this.tipo_cambio;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
         })
       };
-    let postData = {id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice}
+    let postData = {id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice,cambio}
     var Api_URL = "https://iwmxhurxh1.execute-api.us-east-2.amazonaws.com/Escribir/lectrua";
     return new Promise(resolve=> { this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
       console.log(data);
@@ -79,6 +81,7 @@ import { Injectable } from "@angular/core";
       return new Promise(resolve=> {
         this.http.post(Api_URL, postData,httpOptions).subscribe(data => {
           resolve(data["body"]);
+          this.tipo_cambio = data["exchange"];
         },err=>console.log(err))
       });
    }
