@@ -19,7 +19,7 @@ export class CotizadorPage implements OnInit {
   isenabled:boolean=false;
   isQuery:boolean=false;
   Confirmacion:any;
-  Consulta:any;
+  queries:Array<any>;
   id_cotizacion:any; 
   id_compra:any;
   cantidad:any;
@@ -31,11 +31,9 @@ export class CotizadorPage implements OnInit {
     let CoinOrgin = this.Original
     let CoinDest = this.Destino
     this.cantidad = moneda.value;
-    let resultado 
     this.provedor.Cotizar(CoinOrgin,CoinDest,moneda.value).then(data=>{
       this.Criptomoneda = data;
       this.Tabla_Cotizar()
-    resultado = data;
     }).catch(data=>{
       console.log(data);
     })
@@ -47,12 +45,20 @@ export class CotizadorPage implements OnInit {
       this.isenabled=true; 
   }
 
-  Tabla_Cotizar(){
+  async Tabla_Cotizar(){
+    //debugger
     let usuario= "Santiago"
     let browser = this.navegador();
     let tiempo = this.Calcular_tiempo();
     let divice = navigator.platform; 
-    this.provedor.Tabla_Cotizar(usuario,this.cantidad,this.Destino, this.Criptomoneda,browser, divice,tiempo).then(data=>{
+    let IP
+    let geolocation
+    let Info = await fetch("http://geolocation-db.com/json/0f761a30-fe14-11e9-b59f-e53803842572").then(
+      (data)=>data.json());
+      IP = await Info["IPv4"];
+      geolocation = await "Latitud" + String(Info["latitude"]) + "Longitud"+ String(Info["longitude"]); 
+    this.provedor.Tabla_Cotizar(usuario,this.cantidad,this.Destino,this.Original, this.Criptomoneda,browser, divice,tiempo,IP
+      ,geolocation).then(data=>{
       this.id_cotizacion = data;
     }).catch(data=>{
     console.log(data)
@@ -81,6 +87,7 @@ export class CotizadorPage implements OnInit {
   }
   async Consultar(){
    // debugger 
+   this.Criptomoneda = " "
    this.provedor.Leer_base(this.id_compra).then(data=>{
     let prueba = String(data);
     this.Inf_Consulta(prueba);
@@ -89,11 +96,13 @@ export class CotizadorPage implements OnInit {
   async Inf_Consulta(Consulta){
     //debugger
     var datos = Consulta.split(",");
-    this.Consulta = 
-    datos[7].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ") +"\n"+"\n"+
-    datos[4].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ") +"\n"+"\n"+
-    datos[3].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ") +"\n"+"\n"+
-    datos[8].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ");
+    this.queries = [ 
+      {value:datos[7].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
+      {value:datos[4].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
+      {value:datos[3].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
+      {value:datos[8].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
+      {value:datos[6].replace("uuid","ID Compra").replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")}
+    ]
   }
 
   async Confirmar(){

@@ -23,14 +23,14 @@ import { Injectable } from "@angular/core";
           });
    }
    //conectado con Lambda_Cotizar
-   async Tabla_Cotizar(usuario,cantidad,CoinDest,resultado,browser, divice,tiempo){
+   async Tabla_Cotizar(usuario,cantidad,CoinDest,CoinOrg,resultado,browser, divice,tiempo,Usuarioip,geolocalizacion){
     //debugger
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
         })
       };
-    let postData = {usuario,cantidad,CoinDest,resultado,browser, divice,tiempo}
+    let postData = {usuario,cantidad,CoinDest,CoinOrg,resultado,browser, divice,tiempo,Usuarioip,geolocalizacion}
     var Api_URL = "https://top2rb438h.execute-api.us-east-2.amazonaws.com/Escribir/escribir";
     return new Promise(resolve=> { this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
       console.log(data);
@@ -85,22 +85,6 @@ import { Injectable } from "@angular/core";
         },err=>console.log(err))
       });
    }
-  //  async get_User_Info(){
-  //    debugger
-  //   let data = [];
-  //   await fetch("http://geolocation-db.com/json/0f761a30-fe14-11e9-b59f-e53803842572")
-  //     .then(function(response){
-  //       return response.json();
-  //     })
-  //     .then(function(obj){
-  //       data = [obj["IPv4"], obj["latitude"]+","+obj["longitude"]];
-  //     }).catch(function(err){
-  //       console.log(err);
-  //     });
-  //     console.log(data);
-  //     return data
-  // }
-
  }
 
 

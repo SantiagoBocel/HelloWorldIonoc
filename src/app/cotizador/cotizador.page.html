@@ -14,7 +14,8 @@
   </ion-row>
   <br/>
   <form>  <ion-item lines="full">
-    <ion-label  position="floating" ><strong>De</strong></ion-label> 
+    <ion-label  position="floating" ><strong>Moneda Origen</strong></ion-label> 
+    <br/>
     <ion-select placeholder="Moneda" (ionChange)="Asignar_De($event)" >
       <ion-select-option value="BTC">BTC</ion-select-option>
       <ion-select-option value="ETH">ETH</ion-select-option>
@@ -25,7 +26,8 @@
     <ion-input type="number" [disabled]="isenabled" #moneda required></ion-input>
   </ion-item>
   <ion-item lines="full">
-    <ion-label  position="floating" ><strong>A</strong></ion-label> 
+    <ion-label  position="floating" ><strong>Moneda Destino</strong></ion-label> 
+    <br/>
     <ion-select placeholder="Moneda"(ionChange)="Asignar_A($event)" >
       <ion-select-option value="BTC">BTC</ion-select-option>
       <ion-select-option value="BNB">BNB</ion-select-option>
@@ -43,5 +45,9 @@
 <ion-button  expand="block" [disabled]="!isenabled" (click)="Confirmar()">Comprar {{time | async }}</ion-button>
 <h1>{{Confirmacion}}</h1>
 <ion-button  expand="block" (click)="Consultar()" [disabled]="!isQuery">Consultar Compra</ion-button>
-<h3><small><b>{{Consulta}}</b></small></h3>
+<ion-list>
+  <ion-item *ngFor="let query of queries">
+    <label>{{query.value}}</label> 
+  </ion-item>
+</ion-list>
 </ion-content>
