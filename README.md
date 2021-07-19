@@ -1,4 +1,5 @@
 # HelloWorldIonoc
 This is the first job at Coincaex 
 ## Procedimiento Lambda 
-    +[Procedimientos AWS](Procedimiento.pdf)
+    - :file_folder:__Dynamodb
+     +[Procedimientos AWS](Procedimiento.pdf)

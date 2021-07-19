@@ -22,7 +22,7 @@
       <ion-select-option value="USDT"> USDT</ion-select-option>
     </ion-select>
     <br/>
-    <ion-input type="number"  #moneda required></ion-input>
+    <ion-input type="number" [disabled]="isenabled" #moneda required></ion-input>
   </ion-item>
   <ion-item lines="full">
     <ion-label  position="floating" ><strong>A</strong></ion-label> 
