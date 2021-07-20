@@ -94,14 +94,14 @@ export class CotizadorPage implements OnInit {
     }).catch(data=>{console.log(data)})
   }
   async Inf_Consulta(Consulta){
-    //debugger
+    debugger
     var datos = Consulta.split(",");
     this.queries = [ 
+      {value:datos[2].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
       {value:datos[7].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
-      {value:datos[4].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
-      {value:datos[3].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
       {value:datos[8].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
-      {value:datos[6].replace("uuid","ID Compra").replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")}
+      {value:datos[11].replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")},
+      {value:datos[10].replace("uuid","ID Compra").replace("\""," ").replace("\""," ").replace("\""," ").replace("\""," ")}
     ]
   }
 
@@ -113,7 +113,14 @@ export class CotizadorPage implements OnInit {
     let resultado = this.Criptomoneda;
     let tiempo = this.Calcular_tiempo();
     let divice = navigator.platform;
-    this.provedor.Tabla_Compra(this.id_cotizacion,tiempo,usuario,CoinDest,this.cantidad,resultado,browser,divice).then(data=>{
+    let IP
+    let geolocation
+    let Info = await fetch("http://geolocation-db.com/json/0f761a30-fe14-11e9-b59f-e53803842572").then(
+      (data)=>data.json());
+      IP = await Info["IPv4"];
+      geolocation = await "Latitud" + String(Info["latitude"]) + "Longitud"+ String(Info["longitude"]); 
+    this.provedor.Tabla_Compra(this.id_cotizacion,tiempo,usuario,CoinDest,this.Original,this.cantidad,resultado,browser,divice,
+      IP,geolocation).then(data=>{
     this.id_compra = data;
     }).catch(data=>{
       console.log(data)

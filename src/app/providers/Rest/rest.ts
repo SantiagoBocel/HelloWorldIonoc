@@ -33,13 +33,12 @@ import { Injectable } from "@angular/core";
     let postData = {usuario,cantidad,CoinDest,CoinOrg,resultado,browser, divice,tiempo,Usuarioip,geolocalizacion}
     var Api_URL = "https://top2rb438h.execute-api.us-east-2.amazonaws.com/Escribir/escribir";
     return new Promise(resolve=> { this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
-      console.log(data);
-      resolve(data);    
+      resolve(data["uuid_Cotizar"]);    
       },err=>console.log(err))
     });
    }
    //conectada con Lambda_Compra
-   async Tabla_Compra(id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice){
+   async Tabla_Compra(id_Cotizador,tiempo,usuario,CoinDest,CoinOrg,cantidad,resultado,browser,divice,Usuarioip,geolocalizacion){
     //debugger
     let cambio = this.tipo_cambio;
     const httpOptions = {
@@ -47,11 +46,10 @@ import { Injectable } from "@angular/core";
         'Content-Type':  'application/json'
         })
       };
-    let postData = {id_Cotizador,tiempo,usuario,CoinDest,cantidad,resultado,browser,divice,cambio}
+    let postData = {id_Cotizador,tiempo,usuario,CoinDest,CoinOrg,cantidad,resultado,browser,divice,cambio,Usuarioip,geolocalizacion}
     var Api_URL = "https://iwmxhurxh1.execute-api.us-east-2.amazonaws.com/Escribir/lectrua";
     return new Promise(resolve=> { this.http.post(Api_URL, postData,httpOptions).subscribe(data=>{
-      console.log(data);
-      resolve(data);    
+      resolve(data["uuid_Cotizar"])   
       },err=>console.log(err))
     });
    }
